@@ -1,0 +1,33 @@
+extends ../layouts/boilertemplate
+
+block links
+    link(rel='stylesheet',type='text/css',href='../CSS/star.css')
+    link(rel='stylesheet',type='text/css',href='CSS/campGround.css')
+
+block content    
+    .container-fluid.mt-5
+        -success ? h1= success : "";
+        .row
+            .col-md-6.col-12.mb-5.order-md-1.order-sm-2
+                each camp in camps 
+                    .camp-container.bg-light.d-flex.align-items-center.border.border-primary.rounded.py-1.px-2
+                        if(camp.images.length)
+                            img.img-thumbnail.m-2(src= camp.images[0].url,style="heigh:10em;width:10em")
+                        else 
+                            img.img-thumbnail.m-2(src='https://res.cloudinary.com/travelnote/image/upload/v1632920949/campgroundImages/hp7dypwp61rdswpsd1mk.png',style="heigh:10em;width:10em;")
+                        .camp-info.flex-grow-1.d-flex.flex-column.align-items-center
+                            h2.text-wrap= camp.title 
+                            p= camp.location
+                            p.text-wrap= camp.description
+                            p= '$' + camp.price + '/ night'
+                            p.starability-result(data-rating= camp.averageRate )= 'Rated: ' + camp.averageRate +' star'
+                            .btn-group
+                                a.btn.btn-outline-primary(href="/campgrounds/" + camp._id ) 
+                                    .bi.bi-three-dots Details 
+            #map.col-md-12.col-12(style='z-index: -1')
+                
+    //- script(src="/JS/showMainMap.js") 
+    script.
+        const mapToken = `!{env.MAPBOX_TOKEN}`;
+        const currentCamps = !{JSON.stringify(camps)};
+    script(src="/JS/clusterMap.js") 

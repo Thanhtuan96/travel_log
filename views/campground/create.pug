@@ -1,0 +1,19 @@
+extends ../layouts/boilertemplate
+
+block content 
+    .container-fluid.d-flex.justify-content-center.align-items-center
+        .form-container.d-flex.justify-content-center.align-items-center.p-2.border.rounded
+            form.m-2(action="/campgrounds", method="post",enctype='multipart/form-data')
+                lable.form-lable(for="camp-name") Camp Name
+                input.form-control(type="text",id="camp-name",name="campground[title]",required)
+                lable.form-lable(for="camp-location") Camp Location
+                input.form-control(type="text",id="camp-location",name="campground[location]",required)
+                lable.form-lable(for="camp-desc") Description
+                textarea.form-control(name="campground[description]", cols="30", rows="3",id="camp-desc",required)
+                lable.form-lable(for="camp-price") Price
+                input.form-control(type="number",id="camp-price",name="campground[price]",required)
+                lable.form-lable(for="camp-rating") Rating
+                input.form-control(type="number", max='5', min='0', name='campground[rating]',required)
+                input(type='file',name='image',multiple)
+                button.btn.btn-primary 
+                    i.bi-plus-cricle Create
